@@ -15,4 +15,55 @@ layout: default
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
     </article>
   {% endfor %}
+  {% for post in site.posts limit:1 %}
+                    <article class="entry">
+                        <h3 class="entry_title">
+                        {% if post.external-url %}
+                            <a href="{{ post.external-url }}">
+                        {% else %}
+                            <a href="{{ post.url | remove_first:'/'}}">
+                        {% endif %}
+                                {{ post.title }}
+                            </a>
+                        </h3>
+                        {% if post.tagline %}
+                        <p class="entry_tagline">{{ post.tagline }}</p>
+                        {% endif %}
+
+                        {% if post.excerpt %}
+                        <p class="entry_description">{{ post.excerpt | markdownify }}</p>
+                        {% endif %}
+
+                        <div class="entry_meta">
+                            {% if post.author %}
+                            By <span class="author">{{ post.author }}</span> &ndash;
+                            {% endif %}
+
+                            {% if post.date %}
+                            <time datetime="{{ post.date | date: '%b %d, %Y' }}">
+                                {{ post.date | date: '%b %d, %Y' }}
+                            </time>
+                            {% endif %}
+
+                            {% comment %}
+                                {% if post.tags %}
+                                <div class="tags cf">
+                                    <h4 class="tags_head">Tags:</h4>
+                                    <ul class="tag-list">
+                                        {% for tag in post.tags %}
+                                        <li class="tag">
+                                            <a class="tag_link">{{ tag }}</a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            {% endcomment %}
+                        </div>
+<!--                      <a class="entry_read-more-link call-to-action__icon"
+                           href="{{ post.url | remove_first:'/'}}/">
+                           Read more <i class="icon-right"></i>
+                        </a> -->
+                    </article>
+              {% endfor %}
 </div>
